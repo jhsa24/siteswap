@@ -1,9 +1,8 @@
-
 def list_average(lst):
     return sum(lst) / len(lst)
 
 
-def lists_with_sum(length, total, maximum=9):
+def lists_with_sum(total, length, maximum=9):
 
     if length == 0:
         if total == 0:
