@@ -1,12 +1,13 @@
-from aux import lists_with_sum
+from aux import lists_with_sum, is_siteswap, is_standard_form
 import argparse
 
 def siteswap(num, len, height):
     potential_siteswaps = lists_with_sum(num * len, len, height)
     valid_siteswaps = []
 
-    for siteswap in potential_siteswaps:
-        pass
+    for potential_siteswap in potential_siteswaps:
+        if is_siteswap(potential_siteswap) and is_standard_form(potential_siteswap):
+            valid_siteswaps.append(potential_siteswap)
 
     return valid_siteswaps
 
@@ -19,7 +20,7 @@ def main():
 
     args = parser.parse_args()
 
-    print(f"received thefollowing arguments: num = {args.num}, length = {args.length}, height = {args.height}")
+    print(f"received the following arguments: num = {args.num}, length = {args.length}, height = {args.height}")
     return siteswap(args.num, args.length, args.height)
 
 if __name__ == "__main__":

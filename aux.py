@@ -1,6 +1,15 @@
 def list_average(lst):
     return sum(lst) / len(lst)
 
+def list_max(lst):
+    max_so_far = float("-inf")
+
+    for num in lst:
+        if num > max_so_far:
+            max_so_far = num
+
+    return max_so_far
+
 
 def lists_with_sum(total, length, maximum=9):
 
@@ -12,6 +21,22 @@ def lists_with_sum(total, length, maximum=9):
     output = []
 
     for num in range(min(total, maximum) + 1):
-        for lst in lists_with_sum(length - 1, total - num, maximum):
+        for lst in lists_with_sum(total - num, length - 1, maximum):
             output.append([num] + lst)
     return output
+
+def is_siteswap(potential_siteswap):
+
+    l = len(potential_siteswap)
+
+    for x in range(l):
+        for y in range(1,potential_siteswap[x] + 1):
+            if potential_siteswap[x] - y == potential_siteswap[(x+y) % l]:
+                return False
+    return True
+
+
+def is_standard_form(siteswap):
+    if siteswap[0] < list_max(siteswap):
+        return False
+    else: return True

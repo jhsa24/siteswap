@@ -50,14 +50,41 @@ def lists_with_sum2(length, total, maximum=9):
             output.append([num] + lst)
     return output
 
+def is_siteswap(potential_siteswap):
+    l = len(potential_siteswap)
+    
+    for x in range(l):
+        for y in range(1,potential_siteswap[x]):
+            if potential_siteswap[x] - y == potential_siteswap[(x+y) % l]:
+                return False
+    return True
 
-tests = [[0, 0], [0, 3], [1, 3], [1, 4], [2, 4], [2, 8], [3, 9], [5, 25]]
+def list_max(lst):
+    max_so_far = float("-inf")
+    
+    for num in lst:
+        if num > max_so_far:
+            max_so_far = num
+    
+    return max_so_far
 
+def is_standard_form(siteswap):
+    if siteswap[0] < list_max(siteswap):
+        return False
+    
+
+
+tests = [[2, 4], [2, 8], [3, 9]]
 
 def main():
     for test in tests:
         print(f"generating lists of length {test[0]} and sum {test[1]}...")
-        print(f"output: {lists_with_sum2(test[0],test[1])}")
+        potential_siteswaps = lists_with_sum2(test[0], test[1])
+        for potential_siteswap in potential_siteswaps:
+            print(f"{potential_siteswap} is a siteswap: {is_siteswap(potential_siteswap)}")
+            print()
+            print(f"list max of {potential_siteswap} is {list_max(potential_siteswap)} and is in standard form: {is_standard_form(potential_siteswap)}")
+        
 
 
 main()
