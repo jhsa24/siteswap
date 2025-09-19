@@ -25,6 +25,7 @@ def lists_with_sum(total, length, maximum=9):
             output.append([num] + lst)
     return output
 
+
 def is_siteswap(potential_siteswap):
 
     l = len(potential_siteswap)
@@ -36,7 +37,29 @@ def is_siteswap(potential_siteswap):
     return True
 
 
+def list_equivalent_forms(siteswap):
+    l = len(siteswap)
+    lst_of_equivalent_forms = []
+
+    for i in range(l):
+        lst_of_equivalent_forms.append(siteswap[i:] + siteswap[:i])
+    return lst_of_equivalent_forms
+
+
 def is_standard_form(siteswap):
-    if siteswap[0] < list_max(siteswap):
+    l = len(siteswap)
+
+    if siteswap[0] < max(siteswap):
         return False
-    else: return True
+
+    for equivalent in list_equivalent_forms(siteswap):
+        if (equivalent[0] != max(siteswap)) or (equivalent == siteswap):
+            continue
+
+        for i in range(1,l):
+            if siteswap[i] > equivalent[i]:
+                break
+            elif siteswap[i] < equivalent[i]:
+                return False
+
+    return True

@@ -68,9 +68,43 @@ def list_max(lst):
     
     return max_so_far
 
+def list_equivalent_forms(siteswap):
+    l = len(siteswap)
+    lst_of_equivalent_forms = []
+    
+    for i in range(l):
+        lst_a = siteswap[i:]
+        lst_b = siteswap[:i]
+        lst_of_equivalent_forms.append(lst_a + lst_b)
+    return lst_of_equivalent_forms
+
 def is_standard_form(siteswap):
-    if siteswap[0] < list_max(siteswap):
+    l = len(siteswap)
+    
+    if siteswap[0] != list_max(siteswap):
         return False
+    
+    for equivalent in list_equivalent_forms(siteswap):
+        print(f"comparing {siteswap} to {equivalent}")
+        if (equivalent[0] != list_max(siteswap)) or (siteswap == equivalent):
+            print(f"{equivalent} skipped")
+            continue
+        
+        for i in range(l):
+            print()
+            print(f"i = {i}, siteswap[{i}] = {siteswap[i]}, equivalent[{i}] = {equivalent[i]}")
+            if siteswap[i] > equivalent[i]:
+                print(f"{equivalent} skipped")
+                break
+            elif siteswap[i] < equivalent[i]:
+                print(f"{siteswap} not in standard form")
+                return False
+            else:
+                print(f"results match, moving to i = {i+1}:")
+            
+    return True
+
+        
     
 
 
@@ -82,8 +116,8 @@ def main():
         potential_siteswaps = lists_with_sum2(test[0], test[1])
         for potential_siteswap in potential_siteswaps:
             print(f"{potential_siteswap} is a siteswap: {is_siteswap(potential_siteswap)}")
-            print()
             print(f"list max of {potential_siteswap} is {list_max(potential_siteswap)} and is in standard form: {is_standard_form(potential_siteswap)}")
+            print()
         
 
 
