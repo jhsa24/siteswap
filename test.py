@@ -105,6 +105,15 @@ def is_standard_form(siteswap):
     return True
 
         
+def is_cyclic(siteswap):
+    count = 0
+    for equivalent in list_equivalent_forms(siteswap):
+        if siteswap == equivalent:
+            count += 1
+    
+    if count >= 2:
+        return True
+    else: return False
     
 
 
