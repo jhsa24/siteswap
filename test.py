@@ -18,6 +18,8 @@ Functions to write:
 
 
 def list_average(lst):
+    if len(lst) == 0:
+        return None
     return sum(lst) / len(lst)
 
 
@@ -115,8 +117,37 @@ def is_cyclic(siteswap):
         return True
     else: return False
     
-
-
+"""    
+def is_compound(siteswap):
+    l = len(siteswap)
+    n = list_average(siteswap)
+    
+    
+    for x in range(l):
+        for y in range(1,l):
+            end_index = x + y + 1 
+            if end_index < l:
+                sub_siteswap = siteswap[x+1:end_index]
+            else: 
+                sub_siteswap = siteswap[x+1:l] + siteswap[0:end_index - l]
+            #print(f"testing x = {x} and y = {y} on {siteswap}: RESULT: {sub_siteswap}")
+            if list_average(sub_siteswap) == n and is_siteswap(sub_siteswap):
+                print(f"Potential compound detected at x = {x} and y = {y} on {siteswap}: RESULT: {sub_siteswap}")
+"""
+def is_compound(siteswap):
+    l = len(siteswap)
+    n = list_average(siteswap)
+    
+    for i in range(l):
+        sub_siteswap = siteswap[i+1:]
+        print(f"testing i = {i}: remaining siteswap = {sub_siteswap}")
+        if list_average(sub_siteswap) == n and is_siteswap(sub_siteswap):
+            print(f"potential compound pattern discovered: {sub_siteswap}")
+            test = siteswap + sub_siteswap
+            print(test)
+            return is_siteswap(siteswap + sub_siteswap)
+    return False
+            
 tests = [[2, 4], [2, 8], [3, 9]]
 
 def main():
