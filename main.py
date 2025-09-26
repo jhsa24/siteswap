@@ -1,4 +1,4 @@
-from aux import lists_with_sum, is_siteswap, is_standard_form, is_cyclic
+from aux import lists_with_sum, is_siteswap, is_standard_form, is_compound, contain_doubles
 import argparse
 
 def siteswap(num, len, height):
@@ -7,7 +7,7 @@ def siteswap(num, len, height):
 
     for potential_siteswap in potential_siteswaps:
         if is_siteswap(potential_siteswap) and is_standard_form(potential_siteswap):
-            if not is_cyclic(potential_siteswap):
+            if not is_compound(potential_siteswap) and not contain_doubles(potential_siteswap):
                 valid_siteswaps.append(potential_siteswap)
 
     return valid_siteswaps

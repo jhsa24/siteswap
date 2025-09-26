@@ -1,4 +1,6 @@
 def list_average(lst):
+    if len(lst) == 0:
+        return None
     return sum(lst) / len(lst)
 
 def list_max(lst):
@@ -74,3 +76,21 @@ def is_cyclic(siteswap):
     if count >= 2:
         return True
     else: return False
+
+def is_compound(siteswap):
+    l = len(siteswap)
+    n = list_average(siteswap)
+
+    for i in range(l):
+        sub_siteswap = siteswap[i+1:]
+        if list_average(sub_siteswap) == n and is_siteswap(sub_siteswap):
+            return is_siteswap(siteswap + sub_siteswap)
+    return False
+
+def contain_doubles(siteswap, digit_list = [0,1,2]):
+    l = len(siteswap)
+
+    for i in range(l):
+        if siteswap[i] in digit_list and siteswap[i] == siteswap[(i+1) % l]:
+            return True
+    return False
